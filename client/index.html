@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Cursor | V1</title>
+  <link rel="icon" type="image/icon" href="custom cursor v1.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      --accent: #7f5af0;
+      --gradient: linear-gradient(135deg, #232526 0%, #414345 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      width: 100vw;
+      font-family: 'Inter', Arial, sans-serif;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: none;
+    }
+
+    .glass-card {
+      min-width: 350px;
+      max-width: 90vw;
+      padding: 2.5rem 2rem;
+      border-radius: 2rem;
+      background: var(--glass-bg);
+      box-shadow: var(--glass-shadow);
+      border: 1.5px solid var(--glass-border);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .glass-card h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+
+    .glass-card p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+
+    .glass-card .cta-btn {
+      margin-top: 1rem;
+      padding: 0.85rem 2.2rem;
+      border-radius: 1.5rem;
+      border: none;
+      background: linear-gradient(90deg, var(--accent) 0%, #4e8cff 100%);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px 0 rgba(127,90,240,0.18);
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+    .glass-card .cta-btn:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 4px 20px 0 rgba(127,90,240,0.28);
+      background: linear-gradient(90deg, #4e8cff 0%, var(--accent) 100%);
+    }
+
+    /* Custom Cursor Styles */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #fff;
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10000;
+      transform: translate(-50%, -50%);
+      transition: background 0.2s;
+      mix-blend-mode: difference;
+    }
+
+    .cursor-outline {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2.5px solid hsla(0, 0%, 100%, 0.35);
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 16px 2px rgba(127,90,240,0.12);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+    }
+
+    /* Cursor hover effect on button */
+    .cta-btn:hover ~ .cursor-outline,
+    .cta-btn:focus ~ .cursor-outline {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px 4px rgba(127,90,240,0.25);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .glass-card {
+        padding: 1.5rem 0.8rem;
+        min-width: 0;
+      }
+      .glass-card h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <h1>Interactive Custom Cursor</h1>
+    <p>
+      Experience a unique, interactive custom cursor that follows your mouse and reacts to elements on the page.
+      This demo showcases a modern glassmorphism design combined with a smooth animated cursor for an engaging user experience.
+    </p>
+    <button class="cta-btn">Try the Cursor</button>
+  </div>
+  <div class="cursor-dot" data-cursor-dot></div>
+  <div class="cursor-outline" data-cursor-outline></div>
+  <script>
+    const cursorDot = document.querySelector("[data-cursor-dot]");
+    const cursorOutline = document.querySelector("[data-cursor-outline]");
+
+    let outlineX = window.innerWidth / 2, outlineY = window.innerHeight / 2;
+    let dotX = outlineX, dotY = outlineY;
+
+    window.addEventListener('mousemove', function(e) {
+      dotX = e.clientX;
+      dotY = e.clientY;
+      cursorDot.style.left = `${dotX}px`;
+      cursorDot.style.top = `${dotY}px`;
+
+      // Animate outline with smooth trailing
+      cursorOutline.animate({
+        left: `${dotX}px`,
+        top: `${dotY}px`
+      }, {duration: 350, fill: 'forwards'});
+    });
+
+    // Optional: Hide cursor on inactivity
+    let cursorTimeout;
+    function showCursor() {
+      cursorDot.style.opacity = '1';
+      cursorOutline.style.opacity = '1';
+      clearTimeout(cursorTimeout);
+      cursorTimeout = setTimeout(() => {
+        cursorDot.style.opacity = '0';
+        cursorOutline.style.opacity = '0';
+      }, 2500);
+    }
+    window.addEventListener('mousemove', showCursor);
+    showCursor();
+
+    // Optional: Cursor accent on button hover
+    const ctaBtn = document.querySelector('.cta-btn');
+    ctaBtn.addEventListener('mouseenter', () => {
+      cursorOutline.style.borderColor = 'var(--accent)';
+      cursorOutline.style.boxShadow = '0 0 24px 4px rgba(127,90,240,0.25)';
+      cursorDot.style.background = 'var(--accent)';
+    });
+    ctaBtn.addEventListener('mouseleave', () => {
+      cursorOutline.style.borderColor = 'hsla(0, 0%, 100%, 0.35)';
+      cursorOutline.style.boxShadow = '0 0 16px 2px rgba(127,90,240,0.12)';
+      cursorDot.style.background = '#fff';
+    });
+  </script>
+</body>
+</html>
