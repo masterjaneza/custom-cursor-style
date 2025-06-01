@@ -67,8 +67,8 @@ Fully compatible with modern browsers:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/masterjaneza/the-world-of-movies.git
-   cd the-world-of-movies
+   git clone https://github.com/masterjaneza/custom-cursor-style---V1
+   cd custom-cursor-style---V1
    npm install
    npm run dev
    ```
