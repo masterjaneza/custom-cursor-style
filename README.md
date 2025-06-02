@@ -63,15 +63,22 @@ Fully compatible with modern browsers:
 
 --- 
 
-## ⚙️ Setup & Installation
+# ⚙️ Installation – Custom Cursor Style V1
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/masterjaneza/custom-cursor-style---V1
-   cd custom-cursor-style---V1
-   npm install
-   npm run dev
-   ```
+1. **Clone or Download:**
+   
+bash
+   git clone https://github.com/masterjaneza/custom-cursor-style---V1.git
+
+
+* **Open the Project:**
+  * Open `index.html` in your browser  
+    **or**
+  * Use **Live Server** in VS Code.
+
+* **Customize:**
+  * Edit `style.css` for cursor design.
+  * Modify `script.js` for cursor behavior.
 
 ---
 
