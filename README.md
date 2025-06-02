@@ -75,11 +75,6 @@ bash
   * Open `index.html` in your browser  
     **or**
   * Use **Live Server** in VS Code.
-
-* **Customize:**
-  * Edit `style.css` for cursor design.
-  * Modify `script.js` for cursor behavior.
-
 ---
 
 ## 🧪 License
